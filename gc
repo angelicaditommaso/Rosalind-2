@@ -1,0 +1,32 @@
+#Open Dna in Fasta format
+def readFile(filePath):
+    with open(filePath, 'r') as f:
+        return (l.strip()for l in f.readlines())
+
+#Calculate the GC content
+def gc_content(seq):
+    return round(((seq.count('C')+seq.count('G'))/len(seq)*100), 6)
+
+data= readFile("PoCS2/Python/Rosalind/rosalind.txt")
+FastaDict={}
+FastaLabel=""
+
+for line in data:
+    if '>' in line:
+        FastaLabel=line[1:]
+        FastaDict[FastaLabel]=""
+    else:
+       FastaDict[FastaLabel] += line
+
+ResultDict={key: gc_content(value) for (key,value) in FastaDict.items()}
+print(ResultDict)
+
+MaxCG= max(ResultDict, key=ResultDict.get)
+
+print(f'{MaxCG}\n{ResultDict[MaxCG]}')
+
+
+#calculate GC content
+#myGC = (myNucleotideCounts['G'] + myNucleotideCounts['C']) / float(len(myDna))
+
+#print('Dna GC Content = {0}'.format(myGC))
