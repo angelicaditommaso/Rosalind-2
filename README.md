@@ -1,1 +1,1 @@
-# Rosalind-2
+# Rosalind-Assignment 2
