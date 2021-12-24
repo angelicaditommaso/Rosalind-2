@@ -1,0 +1,13 @@
+import math 
+
+k = 6                                                                           
+N = 18 
+
+P = 2**k                                                                       
+probability = 0                                                                
+for i in range(N, P + 1):                                                      
+    prob = (math.factorial(P) /                                                
+            (math.factorial(i) * math.factorial(P - i))) * (0.25**i) * (0.75**(P - i))                                                        
+    probability += prob                                                        
+probability_round= round(probability, 3)
+print(probability_round)
