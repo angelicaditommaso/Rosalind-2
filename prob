@@ -1,7 +1,7 @@
 import math
 
-dataset = "TTATGTAGTATCCGGCTTACCTCTGCCCTGCACACTTCGCCAACGTTACATAGGATCTTAGATGCTACGCGTTCTCCTCCTGAACTTAGCGGGGG"
-number_line = "0.064 0.124 0.225 0.270 0.350 0.372 0.455 0.491 0.554 0.606 0.658 0.735 0.804 0.826 0.928"
+dataset = "TCAAGGAGCGTATGTTGGTAGGGATTAGCCCCCCACAGTCCTGGCTTTAGGTCTCGCCGGGCTAACGCAGGTTTACGTCTGTTGACGTGGAAATAGCATC"
+number_line = "0.059 0.136 0.167 0.204 0.277 0.344 0.358 0.440 0.463 0.538 0.587 0.630 0.660 0.714 0.784 0.828 0.859 0.921"
 
 gcc = [float(i) for i in number_line.split()]
 
@@ -20,4 +20,4 @@ for a_gcc in gcc:
         prob = prob + math.log10(chances[c])
     outputs.append('%0.3f'%prob)
 
-print(" ".join([str(i) for i in outputs]))
+print(*outputs, sep=' ')
