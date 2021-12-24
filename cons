@@ -1,0 +1,90 @@
+import numpy as np
+
+from Bio import SeqIO
+
+file = "C:\\Users\\ngeli\\Desktop\\Rosalind\\File txt\\Cons.fas"
+strings = []
+
+with open(file, "r") as file_handle:
+    for record in SeqIO.parse(file_handle, "fasta"):
+        strings.append(record.seq)
+        
+#print(strings)
+
+
+#strings = [ "ATCCAGCT", "GGGCAACT", "ATGGATCT", "AAGCAACC", "TTGGAACT", "ATGCCATT", "ATGGCACT" ]
+
+#convert strings into matrix
+DNA_strings = [] 
+for string in strings: 
+    newline = []
+    for char in string: 
+        newline.append(char)
+    DNA_strings.append(newline)
+
+
+
+# convert string matrix into profile matrix
+A = []
+C = []
+G = []
+T = []
+rows = len(DNA_strings)
+columns = len(DNA_strings[0])
+
+for column in range(columns):
+    A_count = 0
+    C_count = 0
+    G_count = 0
+    T_count = 0
+    for row in range(rows):
+        for current_character in DNA_strings[row][column]:
+            if current_character == 'A':
+                A_count += 1
+            elif current_character == 'C':
+                C_count += 1
+            elif current_character == 'G':
+                G_count += 1
+            elif current_character == 'T':
+                T_count += 1
+    A.append(A_count)
+    C.append(C_count)
+    G.append(G_count)
+    T.append(T_count)
+
+    
+
+profile = {"A": A, "C": C, "G": G, "T": T}
+
+
+#get consensus string
+profie_copy= profile
+
+P = []
+P.append(A)
+P.append(C)
+P.append(G)
+P.append(T)
+profile_copy = np.array(P).reshape(4, len(A))
+consensus = []
+for i in range(len(A)):
+    if max(profile_copy[:,i]) == profile_copy[0,i]:
+        consensus.append("A")
+    elif max(profile_copy[:,i]) == profile_copy[1,i]:
+        consensus.append("C")
+    elif max(profile_copy[:,i]) == profile_copy[2,i]:
+        consensus.append("G")
+    elif max(profile_copy[:,i]) == profile_copy[3,i]:
+        consensus.append("T")
+print ("".join(consensus))
+
+
+
+final_string_profile = ""
+for key in profile:
+    final_string_profile += key + ": "
+    for value in profile [key]:
+        final_string_profile += str(value) + ' '
+       
+    final_string_profile += "\n"
+print(final_string_profile)
