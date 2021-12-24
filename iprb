@@ -1,0 +1,14 @@
+def dominant_probability(homozygous_dom, heterozygous, homozygous_rec):
+	total = homozygous_dom + heterozygous + homozygous_rec
+
+	rec_prob = (homozygous_rec / total) * ((homozygous_rec - 1) / (total - 1))
+	hetero_prob = (heterozygous / total) * ((heterozygous - 1) / (total - 1))
+	hetero_rec_prob = (heterozygous / total) * (homozygous_rec / (total - 1)) + (homozygous_rec / total) * (heterozygous / (total - 1))
+
+	rec_total = rec_prob + hetero_prob * (.25) + hetero_rec_prob * (.5)
+	return (1 - rec_total)
+
+if __name__ == "__main__":
+
+	result = round(dominant_probability(20,23,29,),5)
+	print (result)
