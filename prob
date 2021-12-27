@@ -1,23 +1,11 @@
 import math
 
-dataset = "TCAAGGAGCGTATGTTGGTAGGGATTAGCCCCCCACAGTCCTGGCTTTAGGTCTCGCCGGGCTAACGCAGGTTTACGTCTGTTGACGTGGAAATAGCATC"
-number_line = "0.059 0.136 0.167 0.204 0.277 0.344 0.358 0.440 0.463 0.538 0.587 0.630 0.660 0.714 0.784 0.828 0.859 0.921"
+with open("C:\\Users\\ngeli\\Desktop\\Rosalind\\probfinal.txt", "r") as f:
+    s = f.readline().strip()
+    A = map(float, f.readline().strip().split(" "))
 
-gcc = [float(i) for i in number_line.split()]
-
-
-outputs = []
-prob = 0
-for a_gcc in gcc:
-    prob = 0
-    chances = {
-        'A' : (1-a_gcc)/2,
-        'C' : a_gcc/2,
-        'G' : a_gcc/2,
-        'T' : (1-a_gcc)/2
-    }
-    for c in dataset:
-        prob = prob + math.log10(chances[c])
-    outputs.append('%0.3f'%prob)
-
-print(*outputs, sep=' ')
+a = s.count('A') + s.count('T')
+c = s.count('C') + s.count('G')
+for i in A:
+    prob = a * math.log((1-i)/2, 10) + c * math.log(i/2, 10)
+    print('%0.3f' %prob, end=" ")
